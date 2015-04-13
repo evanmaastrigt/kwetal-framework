@@ -1,0 +1,9 @@
+{
+  "name": "kwetal/framework",
+  "description": "A light-weight framework intended to try out various components",
+  "license": "MIT",
+  "require": {
+    "php": ">=5.5.0",
+    "symfony/http-foundation": "2.6.*"
+  }
+}

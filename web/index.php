@@ -1,12 +1,25 @@
 <?php
 
-switch($_SERVER['REQUEST_URI']) {
+require '../vendor/autoload.php';
+
+use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
+
+$request = Request::createFromGlobals();
+$response = new Response();
+
+switch ($request->getPathInfo()) {
     case '/':
-        echo 'This is the home page';
+        $response->setContent('This is the website home');
         break;
+
     case '/about':
-        echo 'This is the about page';
+        $response->setContent('This is the about page');
         break;
+
     default:
-        echo sprintf('%s is not found on this server.', $_SERVER['REQUEST_URI']);
+        $response->setContent(sprintf('%s is not found on this server.', $request->getPathInfo()));
+        $response->setStatusCode(Response::HTTP_NOT_FOUND);
 }
+
+$response->send();
