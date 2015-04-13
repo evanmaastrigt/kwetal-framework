@@ -1,25 +1,28 @@
 <?php
+error_reporting(E_ALL);
+ini_set('display_errors', 1);
 
 require '../vendor/autoload.php';
 
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Framework\Core\Core;
+
+
+$app = new Core();
+
+$app->map('/', function () {
+    return new Response('This is the home page');
+});
+
+$app->map('/about', function () {
+    return new Response('This is the about page');
+});
 
 $request = Request::createFromGlobals();
-$response = new Response();
 
-switch ($request->getPathInfo()) {
-    case '/':
-        $response->setContent('This is the website home');
-        break;
-
-    case '/about':
-        $response->setContent('This is the about page');
-        break;
-
-    default:
-        $response->setContent(sprintf('%s is not found on this server.', $request->getPathInfo()));
-        $response->setStatusCode(Response::HTTP_NOT_FOUND);
-}
+$response = $app->handle($request);
 
 $response->send();
+
+
