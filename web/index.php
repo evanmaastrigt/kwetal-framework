@@ -19,6 +19,10 @@ $app->map('/about', function () {
     return new Response('This is the about page');
 });
 
+$app->map('/hello/{name}', function ($name) {
+    return new Response('Hello '.$name);
+});
+
 $request = Request::createFromGlobals();
 
 $response = $app->handle($request);
