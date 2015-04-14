@@ -6,6 +6,7 @@ require '../vendor/autoload.php';
 
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Framework\Event\RequestEvent;
 use Framework\Core\Core;
 
 
@@ -21,6 +22,13 @@ $app->map('/about', function () {
 
 $app->map('/hello/{name}', function ($name) {
     return new Response('Hello '.$name);
+});
+
+$app->on('request', function (RequestEvent $event) {
+    if ('/admin' == $event->getRequest()->getPathInfo()) {
+        echo 'Access Denied!';
+        exit;
+    }
 });
 
 $request = Request::createFromGlobals();
