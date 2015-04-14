@@ -4,7 +4,7 @@
         "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "33250564589e78a1d1b99585177e3b0d",
+    "hash": "3cc39527aad64b670ff1c90b98de5793",
     "packages": [
         {
             "name": "psr/log",
@@ -364,12 +364,58 @@
                 "url"
             ],
             "time": "2015-03-30 15:54:10"
+        },
+        {
+            "name": "tombzombie/dice",
+            "version": "dev-PHP5.4---PHP5.5",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/TomBZombie/Dice.git",
+                "reference": "f325dda938b403c341c1f00f20912518c4f45d82"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/TomBZombie/Dice/zipball/f325dda938b403c341c1f00f20912518c4f45d82",
+                "reference": "f325dda938b403c341c1f00f20912518c4f45d82",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.4.0"
+            },
+            "type": "library",
+            "autoload": {
+                "classmap": [
+                    "loader/",
+                    "dice.php"
+                ]
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "BSD-2-Clause"
+            ],
+            "authors": [
+                {
+                    "name": "Tom Butler",
+                    "email": "tom@r.je"
+                }
+            ],
+            "description": "A minimalist Dependency injection container (DIC) for PHP. Please note: This branch is only compatible with PHP5.4+. A 5.3 compatible version is available as a separate branch on github. ",
+            "homepage": "http://r.je/dice.html",
+            "keywords": [
+                "dependency injection",
+                "dependency injection container",
+                "di",
+                "ioc"
+            ],
+            "time": "2015-03-27 13:48:38"
         }
     ],
     "packages-dev": [],
     "aliases": [],
     "minimum-stability": "stable",
-    "stability-flags": [],
+    "stability-flags": {
+        "tombzombie/dice": 20
+    },
     "prefer-stable": false,
     "prefer-lowest": false,
     "platform": {
