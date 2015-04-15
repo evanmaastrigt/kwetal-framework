@@ -12,6 +12,8 @@ use Framework\Core\Core;
 
 $app = new Core();
 
+$app->setApplicationRoot(dirname(dirname(__FILE__)));
+
 $app->map('/', function () {
     return new Response('This is the home page');
 });

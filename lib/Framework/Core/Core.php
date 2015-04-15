@@ -21,6 +21,9 @@ class Core implements HttpKernelInterface
     /** @var EventDispatcher */
     protected $dispatcher;
 
+    /** @var  string */
+    protected $applicationRoot;
+
 
     public function __construct()
     {
@@ -75,5 +78,21 @@ class Core implements HttpKernelInterface
     public function fire($event)
     {
         return $this->dispatcher->dispatch($event);
+    }
+
+    /**
+     * @return string
+     */
+    public function getApplicationRoot()
+    {
+        return $this->applicationRoot;
+    }
+
+    /**
+     * @param string $applicationRoot
+     */
+    public function setApplicationRoot($applicationRoot)
+    {
+        $this->applicationRoot = $applicationRoot;
     }
 }
