@@ -2,6 +2,7 @@
 
 namespace Framework\Core;
 
+use Framework\Config\Configloader;
 use Framework\Event\RequestEvent;
 use Symfony\Component\EventDispatcher\EventDispatcher;
 use Symfony\Component\HttpFoundation\Request;
@@ -24,11 +25,25 @@ class Core implements HttpKernelInterface
     /** @var  string */
     protected $applicationRoot;
 
+    /** @var  string */
+    protected $environment;
+
 
     public function __construct()
     {
         $this->routes = new RouteCollection();
         $this->dispatcher = new EventDispatcher();
+    }
+
+    public function init()
+    {
+        if (is_null($this->environment) || is_null($this->applicationRoot)) {
+            throw new Exception\ConfigurationException('Some properties are not set in Core ("applicationRoot", "environment")');
+        }
+
+        $this->loadConfiration();
+
+
     }
 
     public function handle(Request $request, $type = HttpKernelInterface::MASTER_REQUEST, $catch = true)
@@ -80,6 +95,12 @@ class Core implements HttpKernelInterface
         return $this->dispatcher->dispatch($event);
     }
 
+    protected function loadConfiration()
+    {
+        $loader = new Configloader($this->getEnvironment(), $this->getApplicationRoot());
+        $loader->load();
+    }
+
     /**
      * @return string
      */
@@ -94,5 +115,21 @@ class Core implements HttpKernelInterface
     public function setApplicationRoot($applicationRoot)
     {
         $this->applicationRoot = $applicationRoot;
+    }
+
+    /**
+     * @return string
+     */
+    public function getEnvironment()
+    {
+        return $this->environment;
+    }
+
+    /**
+     * @param string $environment
+     */
+    public function setEnvironment($environment)
+    {
+        $this->environment = $environment;
     }
 }

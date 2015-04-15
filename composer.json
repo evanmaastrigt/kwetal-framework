@@ -14,5 +14,9 @@
   },
   "autoload": {
     "psr-4": {"Framework\\": "src/"}
+  },
+  "scripts": {
+    "post-install-cmd": "chmod -R 777 app/config",
+    "post-update-cmd": "chmod -R 777 app/config"
   }
 }
