@@ -21,7 +21,7 @@ $container = $app->getContainer();
 
 $app->map('/', function () use ($container) {
     $config = $container->create('Zend\Config\Config');
-    return new Response('This is the home page of ' . $config->webroot);
+    return new Response('This is the home page of ' . $config->db_user);
 });
 
 $app->map('/about', function () {

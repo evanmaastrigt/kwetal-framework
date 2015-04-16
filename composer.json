@@ -10,6 +10,7 @@
     "symfony/http-kernel": "2.6.*",
     "symfony/routing": "2.6.*",
     "tombzombie/dice": "dev-PHP5.4---PHP5.5",
+    "vlucas/phpdotenv": "1.0.*",
     "zendframework/zend-config": "2.4.*"
   },
   "autoload": {

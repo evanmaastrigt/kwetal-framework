@@ -5,6 +5,7 @@ namespace Framework\Core;
 use Dice\Dice;
 use Dice\Rule;
 use Dice\Loader\XML as RuleLoader;
+use Dotenv;
 use Framework\Config\Configloader;
 use Framework\Event\RequestEvent;
 use Symfony\Component\EventDispatcher\EventDispatcher;
@@ -47,6 +48,7 @@ class Core implements HttpKernelInterface
             throw new Exception\ConfigurationException('Some properties are not set in Core ("applicationRoot", "environment")');
         }
 
+        $this->loadDotEnv();
         $this->loadConfiration();
         $this->loadContainer();
 
@@ -119,6 +121,12 @@ class Core implements HttpKernelInterface
         $loader->load($this->getApplicationRoot() . '/app/config/diceRules.xml', $container);
 
         $this->setContainer($container);
+    }
+
+    protected function loadDotEnv()
+    {
+        $dotenv = new Dotenv();
+        $dotenv->load($this->getApplicationRoot() . '/app/config');
     }
 
     /**
