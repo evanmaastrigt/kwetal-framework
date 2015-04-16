@@ -1,0 +1,7 @@
+<?xml version="1.0"?>
+<dice>
+    <rule>
+        <name>Zend\Config\Config</name>
+        <shared>true</shared>
+    </rule>
+</dice>

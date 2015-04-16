@@ -4,12 +4,10 @@ ini_set('display_errors', 1);
 
 require '../vendor/autoload.php';
 
-use Dice\Dice;
-use Dice\Rule;
-use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\HttpFoundation\Response;
 use Framework\Core\Core;
 use Framework\Event\RequestEvent;
+use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
 
 $app = new Core();
 
@@ -18,15 +16,11 @@ $app->setApplicationRoot(dirname(dirname(__FILE__)));
 
 $app->init();
 
-$dice = new Dice();
-$rule = new Rule();
-$rule->shared = true;
-$rule->constructParams = [include $app->getApplicationRoot() . '/app/config/config.php'];
-$dice->addRule('Zend\Config\Config', $rule);
+$container = $app->getContainer();
 
 
-$app->map('/', function () use ($dice) {
-    $config = $dice->create('Zend\Config\Config');
+$app->map('/', function () use ($container) {
+    $config = $container->create('Zend\Config\Config');
     return new Response('This is the home page of ' . $config->webroot);
 });
 
@@ -35,7 +29,7 @@ $app->map('/about', function () {
 });
 
 $app->map('/hello/{name}', function ($name) {
-    return new Response('Hello '.$name);
+    return new Response('Hello ' . $name);
 });
 
 $app->on('request', function (RequestEvent $event) {

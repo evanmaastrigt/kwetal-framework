@@ -2,6 +2,9 @@
 
 namespace Framework\Core;
 
+use Dice\Dice;
+use Dice\Rule;
+use Dice\Loader\XML as RuleLoader;
 use Framework\Config\Configloader;
 use Framework\Event\RequestEvent;
 use Symfony\Component\EventDispatcher\EventDispatcher;
@@ -28,6 +31,9 @@ class Core implements HttpKernelInterface
     /** @var  string */
     protected $environment;
 
+    /** @var  Dice\Dice */
+    protected $container;
+
 
     public function __construct()
     {
@@ -42,6 +48,7 @@ class Core implements HttpKernelInterface
         }
 
         $this->loadConfiration();
+        $this->loadContainer();
 
 
     }
@@ -101,6 +108,19 @@ class Core implements HttpKernelInterface
         $loader->load();
     }
 
+    protected function loadContainer()
+    {
+        $container = new Dice();
+        $rule = new Rule();
+        $rule->constructParams = [include $this->getApplicationRoot() . '/app/config/config.php'];
+        $container->addRule('Zend\Config\Config', $rule);
+
+        $loader = new RuleLoader();
+        $loader->load($this->getApplicationRoot() . '/app/config/diceRules.xml', $container);
+
+        $this->setContainer($container);
+    }
+
     /**
      * @return string
      */
@@ -131,5 +151,21 @@ class Core implements HttpKernelInterface
     public function setEnvironment($environment)
     {
         $this->environment = $environment;
+    }
+
+    /**
+     * @return Dice\Dice
+     */
+    public function getContainer()
+    {
+        return $this->container;
+    }
+
+    /**
+     * @param Dice\Dice $container
+     */
+    public function setContainer($container)
+    {
+        $this->container = $container;
     }
 }
